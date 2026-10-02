@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demian Gomez | Desarrollador Backend .NET</title>
+  <meta name="description" content="Portfolio de Demian Gomez, desarrollador C# y backend .NET de Argentina.">
+
+  <!-- Tipografías: Oswald (títulos, estilo cartel de calle) + Source Sans 3 (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- =========================================================
+       1. MENÚ (fijo arriba)
+       Menú hamburguesa sin JS: checkbox oculto + label.
+       ========================================================= -->
+  <header class="cabecera">
+    <div class="cabecera__contenido contenedor">
+      <a href="#inicio" class="logo">Demian Gomez</a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label="Abrir o cerrar el menú">
+      <label for="menu-toggle" class="menu-boton">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <ul class="nav__lista">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#conocimientos">Conocimientos</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#redes">Redes</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         2. PRESENTACIÓN (Inicio) — foto con marco "portada de disco"
+         ========================================================= -->
+    <section id="inicio" class="hero">
+      <div class="hero__contenido contenedor">
+
+        <!-- Marco decorativo: portada cuadrada con cebra en la base -->
+        <figure class="portada">
+          <div class="portada__foto">
+            <img src="img/foto-perfil.jpeg" alt="Foto de perfil de Demian Gomez sonriendo, con anteojos redondos" width="1600" height="1600">
+          </div>
+          <figcaption class="portada__etiqueta">Lado A · 2026</figcaption>
+        </figure>
+
+        <div class="hero__texto">
+          <p class="pista">Pista 01</p>
+          <h1 class="hero__nombre">Demian Gomez</h1>
+          <p class="hero__titulo">Desarrollador C# · Desarrollador Backend .NET</p>
+          <p class="hero__frase">
+            Construyo aplicaciones y servicios backend con C# y .NET, sólidos por dentro y simples de usar.
+            Me gusta cruzar cada proyecto de punta a punta: desde la base de datos hasta la entrega.
+          </p>
+          <div class="hero__botones">
+            <a href="#proyectos" class="boton boton--primario">Ver proyectos</a>
+            <!-- PLACEHOLDER: poné tu PDF en cv/ con este nombre (o cambiá la ruta) -->
+            <a href="cv/cv-demian-gomez.pdf" class="boton boton--secundario" download>Descargar CV</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cebra decorativa (la senda peatonal de Abbey Road) -->
+      <div class="cebra" aria-hidden="true"></div>
+    </section>
+
+
+    <!-- =========================================================
+         3. SOBRE MÍ (información general + datos + timeline)
+         ========================================================= -->
+    <section id="sobre-mi" class="seccion">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <p class="pista">Pista 02</p>
+          <h2 class="seccion__titulo">Sobre mí</h2>
+        </header>
+
+        <p class="sobre-mi__texto">
+          Soy Demian, estudié en la Universidad Tecnológica Nacional (UTN), soy desarrollador backend de C#,
+          con conocimientos en bases de datos SQL. Siempre buena comunicación y trabajo en equipo.
+        </p>
+
+        <!-- Datos rápidos -->
+        <ul class="datos">
+          <li class="dato">
+            <span class="dato__etiqueta">Ubicación</span>
+            <span class="dato__valor">Argentina</span>
+          </li>
+          <li class="dato">
+            <span class="dato__etiqueta">Idiomas</span>
+            <span class="dato__valor">Español, Inglés</span>
+          </li>
+          <li class="dato">
+            <span class="dato__etiqueta">Educación</span>
+            <span class="dato__valor">Técnico Informático, Universidad Tecnológica Nacional</span>
+          </li>
+          <li class="dato">
+            <span class="dato__etiqueta">Experiencia como desarrollador</span>
+            <span class="dato__valor">1 año</span>
+          </li>
+        </ul>
+
+        <!-- Timeline de experiencia -->
+        <h3 class="subtitulo">Experiencia</h3>
+        <ol class="timeline">
+          <li class="timeline__item">
+            <span class="timeline__fecha">2026 – hoy</span>
+            <p class="timeline__texto">Desarrollando aplicaciones de escritorio orientadas a ventas en comercios.</p>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__fecha">2021 – hoy</span>
+            <p class="timeline__texto"><strong>Mayorista El Kioskero</strong> — Soporte técnico en general y mantenimiento de la tienda web.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         4. CONOCIMIENTOS (agrupados, etiquetas tipo "patente")
+         ========================================================= -->
+    <section id="conocimientos" class="seccion seccion--alterna">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <p class="pista">Pista 03</p>
+          <h2 class="seccion__titulo">Conocimientos</h2>
+        </header>
+
+        <div class="categorias">
+          <article class="categoria">
+            <h3 class="categoria__titulo">Backend</h3>
+            <ul class="etiquetas">
+              <li class="etiqueta">C#</li>
+              <li class="etiqueta">.NET Framework</li>
+            </ul>
+          </article>
+
+          <article class="categoria">
+            <h3 class="categoria__titulo">Bases de datos</h3>
+            <ul class="etiquetas">
+              <li class="etiqueta">SQL</li>
+            </ul>
+          </article>
+
+          <article class="categoria">
+            <h3 class="categoria__titulo">Frontend</h3>
+            <ul class="etiquetas">
+              <li class="etiqueta">HTML</li>
+              <li class="etiqueta">CSS</li>
+              <li class="etiqueta">JS</li>
+            </ul>
+          </article>
+
+          <article class="categoria">
+            <h3 class="categoria__titulo">CMS</h3>
+            <ul class="etiquetas">
+              <li class="etiqueta">WordPress</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         5. PROYECTOS (los 3 primeros son destacados)
+         PLACEHOLDER: reemplazá cada href de "Ver en GitHub" por el repo real.
+         ========================================================= -->
+    <section id="proyectos" class="seccion">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <p class="pista">Pista 04</p>
+          <h2 class="seccion__titulo">Proyectos</h2>
+        </header>
+
+        <div class="proyectos">
+
+          <!-- Proyecto 1 (destacado) -->
+          <article class="proyecto proyecto--destacado">
+            <div class="proyecto__imagen">
+              <img src="img/proyecto-ventaok.jpeg" alt="Captura de VentaOk: listado de artículos con buscador, marcas, categorías y precios" loading="lazy" width="1600" height="866">
+            </div>
+            <div class="proyecto__cuerpo">
+              <p class="proyecto__badge">Destacado</p>
+              <h3 class="proyecto__titulo">VentaOk</h3>
+              <dl class="proyecto__ficha">
+                <div><dt>Género</dt><dd>Aplicación de escritorio · Gestión de ventas</dd></div>
+                <div><dt>Motor</dt><dd>C# · .NET Framework (WinForms) · SQL</dd></div>
+                <div><dt>Contexto</dt><dd>Proyecto de escritorio para comercios</dd></div>
+              </dl>
+              <p class="proyecto__descripcion">Sistema para administrar artículos, marcas y categorías de un comercio, con búsqueda, edición e imágenes de producto.</p>
+              <p class="proyecto__rol"><strong>Mi rol:</strong> diseño de la arquitectura, programación de clases y consultas a la base de datos.</p>
+              <a href="https://github.com/DEMI-7" class="boton boton--primario" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+          </article>
+
+          <!-- Proyecto 2 (destacado) -->
+          <article class="proyecto proyecto--destacado">
+            <div class="proyecto__imagen">
+              <img src="img/proyecto-the-last-squad.jpeg" alt="Póster pixel art de The Last Squad: cinco soldados armados frente a una ciudad en ruinas" loading="lazy" width="1536" height="1024">
+            </div>
+            <div class="proyecto__cuerpo">
+              <p class="proyecto__badge">Destacado</p>
+              <h3 class="proyecto__titulo">The Last Squad</h3>
+              <dl class="proyecto__ficha">
+                <div><dt>Género</dt><dd>Videojuego de acción · Pixel art</dd></div>
+                <!-- PLACEHOLDER: confirmá el motor del juego -->
+                <div><dt>Motor</dt><dd>Unity · C#</dd></div>
+                <div><dt>Contexto</dt><dd>Proyecto de videojuego</dd></div>
+              </dl>
+              <p class="proyecto__descripcion">Juego de acción con un escuadrón de personajes en una ciudad devastada, con estética pixel art.</p>
+              <p class="proyecto__rol"><strong>Mi rol:</strong> diseño de la arquitectura y del gameplay, programación de clases y diseño gráfico.</p>
+              <a href="https://github.com/DEMI-7" class="boton boton--primario" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+          </article>
+
+          <!-- Proyecto 3 (destacado) -->
+          <article class="proyecto proyecto--destacado">
+            <div class="proyecto__imagen">
+              <img src="img/proyecto-magnus-gamers.jpeg" alt="Logo de Magnus Gamers" loading="lazy">
+            </div>
+            <div class="proyecto__cuerpo">
+              <p class="proyecto__badge">Destacado · En proceso</p>
+              <h3 class="proyecto__titulo">Magnus Gamers</h3>
+              <dl class="proyecto__ficha">
+                <div><dt>Género</dt><dd>Sitio web</dd></div>
+                <div><dt>Motor</dt><dd>Web · Base de datos SQL</dd></div>
+                <div><dt>Contexto</dt><dd>Proyecto web en desarrollo</dd></div>
+              </dl>
+              <p class="proyecto__descripcion">Plataforma web para la comunidad gamer Magnus Gamers, actualmente en construcción.</p>
+              <p class="proyecto__rol"><strong>Mi rol:</strong> programación y diseño de la base de datos.</p>
+              <a href="https://github.com/DEMI-7" class="boton boton--primario" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+          </article>
+
+          <!-- Proyecto 4 -->
+          <article class="proyecto">
+            <div class="proyecto__imagen">
+              <img src="img/proyecto-el-kioskero.jpeg" alt="Tienda online de Mayorista El Kioskero hecha en WordPress" loading="lazy">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h3 class="proyecto__titulo">Mayorista El Kioskero</h3>
+              <dl class="proyecto__ficha">
+                <div><dt>Género</dt><dd>Tienda online</dd></div>
+                <div><dt>Motor</dt><dd>WordPress</dd></div>
+                <div><dt>Contexto</dt><dd>Comercio mayorista real</dd></div>
+              </dl>
+              <p class="proyecto__descripcion">Tienda web del mayorista, puesta en línea y mantenida en producción.</p>
+              <p class="proyecto__rol"><strong>Mi rol:</strong> diseño de la página, configuración de plugins y publicación en el hosting.</p>
+              <a href="https://github.com/DEMI-7" class="boton boton--primario" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         6. REDES (íconos SVG inline)
+         ========================================================= -->
+    <section id="redes" class="seccion seccion--alterna">
+      <div class="contenedor">
+        <header class="seccion__cabecera">
+          <p class="pista">Pista 05</p>
+          <h2 class="seccion__titulo">Redes</h2>
+        </header>
+
+        <ul class="redes">
+          <li>
+            <a href="https://www.linkedin.com/in/demian-gomez-814401325/" class="red" target="_blank" rel="noopener noreferrer">
+              <svg class="red__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+              </svg>
+              <span class="red__nombre">LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/DEMI-7" class="red" target="_blank" rel="noopener noreferrer">
+              <svg class="red__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/>
+              </svg>
+              <span class="red__nombre">GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:demiangomez504@gmail.com" class="red" target="_blank" rel="noopener noreferrer">
+              <svg class="red__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M2 4h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v.4l10 6.25L22 6.4V6H2zm20 2.75-9.47 5.92a1 1 0 0 1-1.06 0L2 8.75V18h20V8.75z"/>
+              </svg>
+              <span class="red__nombre">Email</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         7. CONTACTO (formulario sin JS, vía Formspree)
+         PLACEHOLDER: reemplazá TU_ID por el ID de tu formulario de Formspree.
+         ========================================================= -->
+    <section id="contacto" class="seccion">
+      <div class="contenedor contenedor--angosto">
+        <header class="seccion__cabecera">
+          <p class="pista">Pista 06</p>
+          <h2 class="seccion__titulo">Contacto</h2>
+        </header>
+
+        <form class="formulario" action="https://formspree.io/f/TU_ID" method="POST">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="campo">
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" name="asunto" required>
+          </div>
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="boton boton--primario">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER — detalle: cuatro figuras cruzando la senda peatonal
+       ========================================================= -->
+  <footer class="pie">
+    <div class="cruce" aria-hidden="true">
+      <span class="cruce__figura"></span>
+      <span class="cruce__figura"></span>
+      <span class="cruce__figura"></span>
+      <span class="cruce__figura"></span>
+    </div>
+    <p class="pie__texto">© 2026 Demian Gomez</p>
+    <!-- Patente decorativa: homenaje al escarabajo blanco de la portada -->
+    <p class="pie__patente" aria-hidden="true">DMG 2026</p>
+  </footer>
+
+</body>
+</html>

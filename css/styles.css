@@ -1,0 +1,911 @@
+/* =============================================================
+   PORTFOLIO DEMIAN GOMEZ — Homenaje a "Abbey Road" (The Beatles, 1969)
+   Mobile first: estilos base para celular, luego media queries
+   para tablet (768px) y escritorio (1024px).
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. VARIABLES (paleta extraída de la portada del álbum)
+   ------------------------------------------------------------- */
+:root {
+  --color-fondo:      #111821; /* traje negro de Ringo / asfalto en sombra */
+  --color-superficie: #2C4137; /* verde de los árboles de la calle */
+  --color-texto:      #D5CFB9; /* franjas de la cebra / traje blanco de John */
+  --color-acento:     #9ED6F3; /* cielo de Londres */
+  --color-jean:       #376D89; /* camisa de jean de George */
+  --color-asfalto:    #53554F; /* asfalto de Abbey Road */
+
+  --fuente-titulos: "Oswald", "Arial Narrow", sans-serif;
+  --fuente-texto: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+
+  --ancho-max: 1200px;
+  --alto-menu: 64px;
+  --radio: 4px;
+}
+
+
+/* -------------------------------------------------------------
+   2. RESET Y BASE
+   ------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Que las anclas no queden tapadas por el menú fijo */
+  scroll-padding-top: var(--alto-menu);
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: var(--color-acento);
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Foco visible para navegación con teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.menu-toggle:focus-visible + .menu-boton {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 3px;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.contenedor--angosto {
+  max-width: 720px;
+}
+
+
+/* -------------------------------------------------------------
+   3. COMPONENTES REUTILIZABLES
+   ------------------------------------------------------------- */
+
+/* Cebra: franjas de la senda peatonal, usada como separador */
+.cebra {
+  height: 28px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-texto) 0 48px,
+      var(--color-asfalto) 48px 84px
+    );
+}
+
+/* "Pista 0X": numeración tipo lista de temas del disco */
+.pista {
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-acento);
+}
+
+/* Botones */
+.boton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--color-texto);
+  border-radius: var(--radio);
+  font-family: var(--fuente-titulos);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.boton--primario {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+}
+
+.boton--primario:hover {
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+  transform: translateY(-2px);
+}
+
+.boton--secundario {
+  background-color: transparent;
+  color: var(--color-texto);
+}
+
+.boton--secundario:hover {
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  transform: translateY(-2px);
+}
+
+
+/* -------------------------------------------------------------
+   4. MENÚ (fijo arriba + hamburguesa solo con CSS)
+   ------------------------------------------------------------- */
+.cabecera {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--color-fondo);
+  border-bottom: 4px solid var(--color-texto);
+}
+
+.cabecera__contenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--alto-menu);
+}
+
+.logo {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+/* Checkbox oculto visualmente pero accesible por teclado */
+.menu-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/* Ícono hamburguesa (3 rayas = 3 franjas de cebra) */
+.menu-boton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.menu-boton span {
+  display: block;
+  height: 3px;
+  background-color: var(--color-texto);
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+/* Hamburguesa -> X cuando está abierto */
+.menu-toggle:checked + .menu-boton span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.menu-toggle:checked + .menu-boton span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle:checked + .menu-boton span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Panel del menú en celular: oculto hasta tildar el checkbox */
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-fondo);
+  border-bottom: 4px solid var(--color-texto);
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: max-height 0.3s ease, visibility 0.3s;
+}
+
+.menu-toggle:checked ~ .nav {
+  max-height: 480px;
+  visibility: visible;
+}
+
+.nav__lista a {
+  display: block;
+  padding: 0.9rem 1rem;
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-texto);
+  text-decoration: none;
+  border-top: 1px solid var(--color-asfalto);
+}
+
+.nav__lista a:hover {
+  color: var(--color-acento);
+}
+
+
+/* -------------------------------------------------------------
+   5. PRESENTACIÓN (hero) + marco "portada de disco"
+   ------------------------------------------------------------- */
+.hero {
+  padding-top: calc(var(--alto-menu) + 2.5rem);
+  /* Cielo de Londres que se funde con la calle */
+  background: linear-gradient(180deg, var(--color-superficie) 0%, var(--color-fondo) 85%);
+}
+
+.hero__contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+/* Marco: portada cuadrada, borde crema y cebra en la base */
+.portada {
+  position: relative;
+  width: min(80vw, 340px);
+  padding: 12px 12px 40px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-texto) 0 22px,
+      var(--color-asfalto) 22px 38px
+    );
+  border-radius: var(--radio);
+  box-shadow: 12px 12px 0 var(--color-jean);
+  transform: rotate(-2deg);
+}
+
+.portada__foto {
+  aspect-ratio: 1 / 1;
+  /* Fondo de color mientras la imagen no exista o cargue */
+  background-color: var(--color-jean);
+  border: 6px solid var(--color-texto);
+  overflow: hidden;
+}
+
+.portada__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portada__etiqueta {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  padding: 0 0.5rem;
+  background-color: var(--color-fondo);
+  font-family: var(--fuente-titulos);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero__nombre {
+  font-size: clamp(2.6rem, 11vw, 5rem);
+  margin: 0.25rem 0;
+}
+
+.hero__titulo {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--color-acento);
+}
+
+.hero__frase {
+  max-width: 42ch;
+  margin: 1.25rem auto 0;
+}
+
+.hero__botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+
+/* -------------------------------------------------------------
+   6. SECCIONES GENÉRICAS
+   ------------------------------------------------------------- */
+.seccion {
+  padding: 4rem 0;
+}
+
+/* Secciones alternas en verde árbol, separadas por cebras */
+.seccion--alterna {
+  background-color: var(--color-superficie);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--color-texto) 0 40px,
+    var(--color-asfalto) 40px 70px
+  ) 14;
+}
+
+.seccion__cabecera {
+  margin-bottom: 2rem;
+}
+
+.seccion__titulo {
+  font-size: clamp(2rem, 7vw, 3rem);
+}
+
+.subtitulo {
+  margin: 3rem 0 1.25rem;
+  font-size: 1.5rem;
+}
+
+
+/* -------------------------------------------------------------
+   7. SOBRE MÍ (datos + timeline)
+   ------------------------------------------------------------- */
+.sobre-mi__texto {
+  max-width: 65ch;
+  font-size: 1.15rem;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  background-color: var(--color-superficie);
+  border-left: 6px solid var(--color-texto);
+  border-radius: var(--radio);
+}
+
+.dato__etiqueta {
+  font-family: var(--fuente-titulos);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-acento);
+}
+
+.dato__valor {
+  font-weight: 600;
+}
+
+/* Timeline: la línea central es la raya discontinua de la calle */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6px;
+  width: 4px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-texto) 0 18px,
+    transparent 18px 30px
+  );
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: 1.75rem;
+}
+
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 1px);
+  top: 0.35rem;
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-acento);
+  border: 3px solid var(--color-fondo);
+  border-radius: 50%;
+}
+
+.timeline__fecha {
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.1em;
+  color: var(--color-acento);
+}
+
+
+/* -------------------------------------------------------------
+   8. CONOCIMIENTOS (etiquetas estilo patente británica)
+   ------------------------------------------------------------- */
+.categorias {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.categoria {
+  padding: 1.5rem;
+  background-color: var(--color-fondo);
+  border-radius: var(--radio);
+}
+
+.categoria__titulo {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--color-acento);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Cada tecnología como la patente "LMW 281F" del escarabajo */
+.etiqueta {
+  padding: 0.35rem 0.9rem;
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  border: 2px solid var(--color-fondo);
+  outline: 2px solid var(--color-texto);
+  border-radius: 3px;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+/* -------------------------------------------------------------
+   9. PROYECTOS (tarjetas; los 3 primeros destacados)
+   ------------------------------------------------------------- */
+.proyectos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.proyecto {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-superficie);
+  border-radius: var(--radio);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.proyecto:hover {
+  transform: translateY(-4px);
+}
+
+.proyecto__imagen {
+  aspect-ratio: 16 / 10;
+  /* Fondo de color mientras no haya imagen */
+  background-color: var(--color-jean);
+  border-bottom: 6px solid var(--color-texto);
+}
+
+.proyecto__imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.proyecto__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.proyecto__cuerpo .boton {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.proyecto__badge {
+  align-self: flex-start;
+  padding: 0.15rem 0.6rem;
+  background-color: var(--color-acento);
+  color: var(--color-fondo);
+  font-family: var(--fuente-titulos);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.proyecto__titulo {
+  font-size: 1.6rem;
+}
+
+.proyecto__ficha {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.proyecto__ficha div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.proyecto__ficha dt {
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-acento);
+}
+
+.proyecto__ficha dt::after {
+  content: ":";
+}
+
+.proyecto__rol strong {
+  color: var(--color-acento);
+}
+
+
+/* -------------------------------------------------------------
+   10. REDES (íconos grandes)
+   ------------------------------------------------------------- */
+.redes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.red {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 140px;
+  padding: 1.5rem 1rem;
+  background-color: var(--color-fondo);
+  border: 3px solid var(--color-texto);
+  border-radius: var(--radio);
+  color: var(--color-texto);
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.red:hover {
+  color: var(--color-acento);
+  border-color: var(--color-acento);
+  transform: translateY(-4px);
+}
+
+.red__icono {
+  width: 56px;
+  height: 56px;
+  fill: currentColor;
+}
+
+.red__nombre {
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+/* -------------------------------------------------------------
+   11. FORMULARIO DE CONTACTO
+   ------------------------------------------------------------- */
+.formulario {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.campo label {
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: var(--color-superficie);
+  color: var(--color-texto);
+  border: 2px solid var(--color-asfalto);
+  border-radius: var(--radio);
+  font: inherit;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: var(--color-acento);
+}
+
+/* Validación nativa: borde de aviso solo después de interactuar */
+.campo input:user-invalid,
+.campo textarea:user-invalid {
+  border-color: var(--color-texto);
+  border-style: dashed;
+}
+
+.formulario .boton {
+  justify-self: start;
+  min-width: 160px;
+}
+
+
+/* -------------------------------------------------------------
+   12. FOOTER (cuatro figuras cruzando la cebra)
+   ------------------------------------------------------------- */
+.pie {
+  padding-bottom: 2rem;
+  text-align: center;
+  border-top: 4px solid var(--color-texto);
+}
+
+.cruce {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.75rem;
+  height: 70px;
+  margin-bottom: 1.5rem;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-texto) 0 30px,
+      var(--color-asfalto) 30px 52px
+    ) bottom / 100% 16px no-repeat;
+}
+
+/* Figura: cabeza (::before) + cuerpo, caminando de izquierda a derecha */
+.cruce__figura {
+  position: relative;
+  width: 14px;
+  height: 34px;
+  margin-bottom: 8px;
+  border-radius: 7px 7px 2px 2px;
+  animation: caminar 0.8s ease-in-out infinite alternate;
+}
+
+.cruce__figura::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: inherit;
+}
+
+/* Los colores de la ropa de cada Beatle, en orden de la portada */
+.cruce__figura:nth-child(1) { background-color: var(--color-texto);   animation-delay: 0s;   } /* John (blanco) */
+.cruce__figura:nth-child(2) { background-color: var(--color-asfalto); animation-delay: .2s;  } /* Ringo (negro) */
+.cruce__figura:nth-child(3) { background-color: var(--color-acento);  animation-delay: .4s;  } /* Paul */
+.cruce__figura:nth-child(4) { background-color: var(--color-jean);    animation-delay: .6s;  } /* George (jean) */
+
+@keyframes caminar {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-4px); }
+}
+
+.pie__texto {
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.pie__patente {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.1rem 0.6rem;
+  background-color: var(--color-texto);
+  color: var(--color-fondo);
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  border-radius: 2px;
+}
+
+/* Respetar a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* =============================================================
+   13. TABLET (desde 768px)
+   ============================================================= */
+@media (min-width: 768px) {
+  .contenedor {
+    padding: 0 2rem;
+  }
+
+  .datos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .categorias {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .proyectos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* El primer destacado ocupa todo el ancho */
+  .proyecto--destacado:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* El proyecto común (no destacado) ocupa todo el ancho en horizontal */
+  .proyecto:not(.proyecto--destacado) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+
+  .proyecto:not(.proyecto--destacado) .proyecto__imagen {
+    flex: 0 0 38%;
+    aspect-ratio: auto;
+    border-bottom: 0;
+    border-right: 6px solid var(--color-texto);
+  }
+
+  .red {
+    width: 170px;
+  }
+}
+
+
+/* =============================================================
+   14. ESCRITORIO (desde 1024px)
+   ============================================================= */
+@media (min-width: 1024px) {
+  /* Menú horizontal: se oculta la hamburguesa */
+  .menu-boton {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    visibility: visible;
+    border: 0;
+  }
+
+  .nav__lista {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav__lista a {
+    padding: 0.5rem 0.75rem;
+    border-top: 0;
+    border-bottom: 3px solid transparent;
+  }
+
+  .nav__lista a:hover {
+    border-bottom-color: var(--color-acento);
+  }
+
+  /* Hero en dos columnas */
+  .hero__contenido {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+    text-align: left;
+    padding-bottom: 4rem;
+  }
+
+  .portada {
+    width: 400px;
+    flex-shrink: 0;
+  }
+
+  .hero__frase {
+    margin-left: 0;
+  }
+
+  .hero__botones {
+    justify-content: flex-start;
+  }
+
+  .seccion {
+    padding: 6rem 0;
+  }
+
+  .datos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .categorias {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Grilla de 6 columnas: los 3 destacados en fila, más grandes */
+  .proyectos {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .proyecto--destacado,
+  .proyecto--destacado:first-child {
+    grid-column: span 2;
+  }
+
+  .proyecto--destacado .proyecto__imagen {
+    aspect-ratio: 4 / 3;
+  }
+
+  .proyecto:not(.proyecto--destacado) {
+    grid-column: 2 / 6;
+  }
+
+  .proyecto:not(.proyecto--destacado) .proyecto__imagen {
+    flex-basis: 34%;
+  }
+}
